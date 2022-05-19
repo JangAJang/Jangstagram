@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MainController {
 
-    @GetMapping("/")
+    @GetMapping("/login")
     public String login(){
-        return "jangstagram_login";
+        return "login";
     }
 
     @GetMapping("/createId")
     public String createId(){
-        return "jangstagram_createid";
+        return "createId";
     }
 
 }
