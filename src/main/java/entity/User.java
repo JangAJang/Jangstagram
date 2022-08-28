@@ -6,6 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -40,8 +43,18 @@ public class User {
     private String phone;
 
     @Column
+    private String role;
+
+    @Column
     private String provider;
 
     @Column
     private String providerId;
+
+    public List<String> getRoleList(){
+        if(this.role.length() >0 ){
+            return Arrays.asList(this.role.split(","));
+        }
+        return new ArrayList<>();
+    }
 }

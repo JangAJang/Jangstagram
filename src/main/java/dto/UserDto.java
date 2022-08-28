@@ -23,6 +23,9 @@ public class UserDto {
 
 
     public static UserDto toDto(User user){
-        UserDto userDto = new UserDto();
+        UserDto userDto = new UserDto(
+                user.getNickname(), user.getLastName(), user.getFirstName(), user.getUsername()
+        );
+        return userDto;
     }
 }

@@ -16,15 +16,26 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public UserDto register(RegisterRequestDto registerRequestDto){
-        User user = User.builder()
-                .email(registerRequestDto.getEmail())
-                .firstName(registerRequestDto.getFirstName())
-                .lastName(registerRequestDto.getLastName())
-                .nickname(registerRequestDto.getNickName())
-                .password(registerRequestDto.getPassword())
-                .phone(registerRequestDto.getPhone())
-                .build();
-        userRepository.save(user);
+        if(registerRequestDto.getPasswordCheck().equals(registerRequestDto.getPassword())){
+            User user = User.builder()
+                    .email(registerRequestDto.getEmail())
+                    .firstName(registerRequestDto.getFirstName())
+                    .lastName(registerRequestDto.getLastName())
+                    .nickname(registerRequestDto.getNickName())
+                    .password(registerRequestDto.getPassword())
+                    .phone(registerRequestDto.getPhone())
+                    .role("ROLE_USER")
+                    .build();
+            userRepository.save(user);
+            return UserDto.toDto(user);
+        }
+        else{
+            throw new IllegalArgumentException("Password not Same");
+        }
+    }
 
+    @Transactional
+    public UserDto myPage(User user){
+        return UserDto.toDto(user);
     }
 }
