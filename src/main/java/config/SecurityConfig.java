@@ -1,48 +1,64 @@
 package config;
 
-import jwt.JwtAuthenticationFilter;
-import jwt.JwtAuthorizationFilter;
-import oauth.PrincipalOAuth2UserService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import repository.UserRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsUtils;
+
+import java.util.List;
 
 @Configuration
+@RequiredArgsConstructor
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig {
 
-    UserRepository userRepository;
 
-    CorsConfig corsConfig;
-
-    PrincipalOAuth2UserService principalOAuth2UserService;
+    @Bean
+    public BCryptPasswordEncoder encode(){
+        return new BCryptPasswordEncoder();
+    }
 
     @Override
-    protected void configure(HttpSecurity http)throws Exception{
-        http.addFilter(corsConfig.corsFilter())
-                .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .formLogin().disable()
-                .httpBasic().disable()
-                .addFilter(new JwtAuthenticationFilter(authenticationManager()))
-                .addFilter(new JwtAuthorizationFilter(authenticationManager(), userRepository))
-                .authorizeRequests()
-                .antMatchers("/api/users")
-                .access("hasRole('ROLE_USER') or hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
-                .anyRequest().permitAll()
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .loginProcessingUrl("/loginProc")    //로그인 주소 호출되면 security가 낚아챔.
-                .defaultSuccessUrl("/")
-                .and()
-                .oauth2Login()
-                .loginPage("/login") // 여기까지만 하면 후처리가 안돼서 로그인 후 창 이동이 안됨.
-                .userInfoEndpoint()
-                .userService(principalOAuth2UserService);
+    public void configure(WebSecurity web){
+        web.ignoring().antMatchers("/v2/api-docs", "/swagger-resources/**", "/webjars/**", "/swagger/**");
     }
+
+    @Override
+    public void configure(HttpSecurity http)throws Exception{
+        http.csrf().disable();
+        http.cors().configurationSource(request -> {
+            var cors = new CorsConfiguration();
+            cors.setAllowedOrigins(List.of("http://localhost:3000"));
+            cors.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
+            cors.setAllowedHeaders(List.of("*"));
+            return cors;
+        });
+
+        http.authorizeRequests()
+                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll();
+        http
+                .exceptionHandling()
+                .authenticationEntryPoint(jwtAu)
+                .accessDeniedPage(jwtDenialHandler)
+
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+
+                .and()
+                .authorizeRequests()
+                .antMatchers("/api/auth/manager/**").access("hasRole('ROLE_MANAGER')")
+                .antMatchers("/api/auth/admin/**").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("api/login", "api/register").permitAll()
+                .antMatchers("api/auth/**").access("hasRole('ROLE_USER')")
+                .and()
+                .apply(new JwtSecurityConfig(tokenProvier))
+    }
+
 }

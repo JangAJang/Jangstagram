@@ -1,5 +1,7 @@
 package advice;
 
+import excpetion.AlreadyRegisteredException;
+import excpetion.PasswordNotSameException;
 import excpetion.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -23,13 +25,21 @@ public class ExceptionAdvice {
         return Response.failure(400, e.getBindingResult().getFieldError().getDefaultMessage());
     }
 
-    //404 응답
-    //요청한 유저 정보를 찾을 수 없음
-
-    // memberNotFoundException()랑 userNotFoundException(e)랑 겹치는 내용인거 같은데 ??(수정필요하면 코드리뷰 부탁드립니당)
     @ExceptionHandler(UserNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public Response userNotFoundException() {
         return Response.failure(404, "유저를 찾을 수 없습니다 ");
+    }
+
+    @ExceptionHandler(PasswordNotSameException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Response passwordNotSameException() {
+        return Response.failure(404, "유저를 찾을 수 없습니다 ");
+    }
+
+    @ExceptionHandler(AlreadyRegisteredException.class)
+    @ResponseStatus(HttpStatus.ALREADY_REPORTED)
+    public Response alreadyRegisteredException(){
+        return Response.failure(404, "이미 회원가입한 회원입니다. ");
     }
 }
