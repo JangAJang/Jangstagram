@@ -24,4 +24,6 @@ public class UserController {
     public Response register(RegisterRequestDto registerRequestDto){
         return Response.success(userService.register(registerRequestDto));
     }
+
+
 }
