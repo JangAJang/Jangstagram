@@ -1,9 +1,6 @@
 package advice;
 
-import excpetion.AlreadyRegisteredException;
-import excpetion.PasswordNotSameException;
-import excpetion.UserNotFoundException;
-import excpetion.UserNotFoundPasswordException;
+import excpetion.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -48,5 +45,10 @@ public class ExceptionAdvice {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public Response userNotFoundPasswordException(){
         return Response.failure(404, "사용자의 비밀번호를 확인할 수 없습니다. ");
+    }
+    @ExceptionHandler(UserPasswordNotEqualException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Response userPasswordNotEqualException(){
+        return Response.failure(404, "비밀번호가 일치하지 않습니다. ");
     }
 }

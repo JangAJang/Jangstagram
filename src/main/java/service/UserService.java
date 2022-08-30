@@ -4,14 +4,13 @@ import config.jwt.TokenProvider;
 import dto.*;
 import entity.RefreshToken;
 import entity.User;
-import excpetion.AlreadyRegisteredException;
-import excpetion.PasswordNotSameException;
-import excpetion.UserNotFoundException;
-import excpetion.UserNotFoundPasswordException;
+import excpetion.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +30,9 @@ public class UserService {
     private final TokenProvider tokenProvider;
 
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Transactional(readOnly = true)
     public UserDto register(RegisterRequestDto registerRequestDto){
@@ -125,6 +127,45 @@ public class UserService {
         // 토큰 발급
         LoginResponseDto tokenResponseDto = new LoginResponseDto(tokenDto.getAccessToken(), tokenDto.getRefreshToken());
         return tokenResponseDto;
+    }
+
+    @Transactional(readOnly = true)
+    public FindUsernameResponseDto findUsername(FindUsernameRequestDto findUsernameRequestDto){
+        User user = userRepository.findByPhone(findUsernameRequestDto.getPhone()).orElseThrow(UserNotFoundException::new);
+        return new FindUsernameResponseDto(user.getUsername());
+    }
+
+    @Transactional(readOnly = true)
+    public String findPassword(FindPasswordRequestDto findPasswordRequestDto){
+        User user = userRepository.findByUsername(findPasswordRequestDto.getUsername()).orElseThrow(UserNotFoundException::new);
+        if(user.getFirstName().equals(findPasswordRequestDto.getFirstName()) &&
+                user.getLastName().equals(findPasswordRequestDto.getLastName()) &&
+        user.getPhone().equals(findPasswordRequestDto.getPhone())){
+            String newPassword = bCryptPasswordEncoder.encode(user.getUsername());
+            user.setPassword(newPassword);
+            userRepository.save(user);
+            return newPassword;
+        }
+        else{
+            throw new UserNotEqualsException();
+        }
+    }
+
+    @Transactional
+    public LoginResponseDto changePassword(ChangePasswordRequestDto changePasswordRequestDto){
+        User user = userRepository.findByUsername(changePasswordRequestDto.getUsername()).orElseThrow(UserNotEqualsException::new);
+        if(user.getPassword().equals(changePasswordRequestDto.getPassword())){
+            if(changePasswordRequestDto.getNewPassword().equals(changePasswordRequestDto.getCheckPassword())){
+                user.setPassword(changePasswordRequestDto.getNewPassword());
+                userRepository.save(user);
+            }
+            else{
+                throw new UserPasswordNotEqualException();
+            }
+        }
+        else{
+            throw new UserNotFoundPasswordException();
+        }
     }
 
 }
