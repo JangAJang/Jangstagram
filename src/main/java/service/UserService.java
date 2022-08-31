@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import repository.RefreshTokenRepository;
 import repository.UserRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -35,10 +36,10 @@ public class UserService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Transactional(readOnly = true)
-    public UserDto register(RegisterRequestDto registerRequestDto){
+    public UserDto register(RegisterRequestDto registerRequestDto) {
         List<User> users = userRepository.findAllByUsername(registerRequestDto.getUsername());
-        if(!users.isEmpty()){
-            if(registerRequestDto.getPasswordCheck().equals(registerRequestDto.getPassword())){
+        if (!users.isEmpty()) {
+            if (registerRequestDto.getPasswordCheck().equals(registerRequestDto.getPassword())) {
                 User user = User.builder()
                         .email(registerRequestDto.getEmail())
                         .firstName(registerRequestDto.getFirstName())
@@ -50,18 +51,16 @@ public class UserService {
                         .build();
                 userRepository.save(user);
                 return UserDto.toDto(user);
-            }
-            else{
+            } else {
                 throw new PasswordNotSameException();
             }
-        }
-        else{
+        } else {
             throw new AlreadyRegisteredException();
         }
     }
 
     @Transactional
-    public UserDto myPage(User user){
+    public UserDto myPage(User user) {
         return UserDto.toDto(user);
     }
 
@@ -72,7 +71,7 @@ public class UserService {
             throw new UserNotFoundException();
         });
 
-        if(passwordEncoder.matches(loginRequestDto.getPassword(), user.getPassword())) { // passwordEncoder.matches(받아온 pw, 데베 pw)
+        if (passwordEncoder.matches(loginRequestDto.getPassword(), user.getPassword())) { // passwordEncoder.matches(받아온 pw, 데베 pw)
 
             // 1. Login ID/PW 를 기반으로 AuthenticationToken 생성
             UsernamePasswordAuthenticationToken authenticationToken = loginRequestDto.toAuthentication();
@@ -130,41 +129,56 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public FindUsernameResponseDto findUsername(FindUsernameRequestDto findUsernameRequestDto){
+    public FindUsernameResponseDto findUsername(FindUsernameRequestDto findUsernameRequestDto) {
         User user = userRepository.findByPhone(findUsernameRequestDto.getPhone()).orElseThrow(UserNotFoundException::new);
         return new FindUsernameResponseDto(user.getUsername());
     }
 
     @Transactional(readOnly = true)
-    public String findPassword(FindPasswordRequestDto findPasswordRequestDto){
+    public String findPassword(FindPasswordRequestDto findPasswordRequestDto) {
         User user = userRepository.findByUsername(findPasswordRequestDto.getUsername()).orElseThrow(UserNotFoundException::new);
-        if(user.getFirstName().equals(findPasswordRequestDto.getFirstName()) &&
+        if (user.getFirstName().equals(findPasswordRequestDto.getFirstName()) &&
                 user.getLastName().equals(findPasswordRequestDto.getLastName()) &&
-        user.getPhone().equals(findPasswordRequestDto.getPhone())){
+                user.getPhone().equals(findPasswordRequestDto.getPhone())) {
             String newPassword = bCryptPasswordEncoder.encode(user.getUsername());
             user.setPassword(newPassword);
             userRepository.save(user);
             return newPassword;
-        }
-        else{
+        } else {
             throw new UserNotEqualsException();
         }
     }
 
     @Transactional
-    public LoginResponseDto changePassword(ChangePasswordRequestDto changePasswordRequestDto){
+    public String changePassword(ChangePasswordRequestDto changePasswordRequestDto) {
         User user = userRepository.findByUsername(changePasswordRequestDto.getUsername()).orElseThrow(UserNotEqualsException::new);
-        if(user.getPassword().equals(changePasswordRequestDto.getPassword())){
-            if(changePasswordRequestDto.getNewPassword().equals(changePasswordRequestDto.getCheckPassword())){
+        if (user.getPassword().equals(changePasswordRequestDto.getPassword())) {
+            if (changePasswordRequestDto.getNewPassword().equals(changePasswordRequestDto.getCheckPassword())) {
                 user.setPassword(changePasswordRequestDto.getNewPassword());
                 userRepository.save(user);
-            }
-            else{
+                return "Success Changing Password!";
+            } else {
                 throw new UserPasswordNotEqualException();
             }
+        } else {
+            throw new UserNotFoundPasswordException();
+        }
+    }
+
+    @Transactional
+    public List<UserDto> getUsers(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User admin = userRepository.findByUsername(authentication.getName()).orElseThrow(UserNotFoundException::new);
+        if(admin.getRole().equals("ROLE_USER")){
+            throw new UserNotPermittedException();
         }
         else{
-            throw new UserNotFoundPasswordException();
+            List<User> users = userRepository.findAll();
+            List<UserDto> userDtos = new ArrayList<>();
+            for(User user : users){
+                userDtos.add(UserDto.toDto(user));
+            }
+            return userDtos;
         }
     }
 

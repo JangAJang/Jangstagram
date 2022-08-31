@@ -51,4 +51,10 @@ public class ExceptionAdvice {
     public Response userPasswordNotEqualException(){
         return Response.failure(404, "비밀번호가 일치하지 않습니다. ");
     }
+
+    @ExceptionHandler(UserNotPermittedException.class)
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+    public Response userNotPermittedException(){
+        return Response.failure(404, "사용자 권한이 존재하지 않습니다. ");
+    }
 }

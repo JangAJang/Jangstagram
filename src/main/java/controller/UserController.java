@@ -51,6 +51,12 @@ public class UserController {
         return Response.success(userService.changePassword(changePasswordRequestDto));
     }
 
+    @ApiOperation(value = "사용자 전체 찾기", notes = "사용자 전체 찾기 페이지입니다. ")
+    @GetMapping("/auth/admin/getAll")
+    @ResponseStatus(HttpStatus.OK)
+    public Response getAll(){
+        return Response.success(userService.getUsers());
+    }
 
 
 
