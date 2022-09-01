@@ -59,11 +59,6 @@ public class UserService {
         }
     }
 
-    @Transactional
-    public UserDto myPage(User user) {
-        return UserDto.toDto(user);
-    }
-
     // 로그인 함수
     @Transactional
     public LoginResponseDto login(LoginRequestDto loginRequestDto) {
@@ -182,4 +177,32 @@ public class UserService {
         }
     }
 
+    @Transactional(readOnly = true)
+    public UserDto myPage(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByUsername(authentication.getName()).orElseThrow(UserNotFoundException::new);
+        return UserDto.toDto(user);
+    }
+
+    @Transactional
+    public UserDto changeNickname(ChangeNicknameRequestDto changeNicknameRequestDto){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByUsername(authentication.getName()).orElseThrow(UserNotFoundException::new);
+        user.setNickname(changeNicknameRequestDto.getNew_nickname());
+        userRepository.save(user);
+        return UserDto.toDto(user);
+    }
+
+    @Transactional(readOnly = true)
+    public UserDto findUser(String username){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User authCheck = userRepository.findByUsername(authentication.getName()).orElseThrow(UserNotFoundException::new);
+        if(authCheck.getRole().equals("ROLE_USER")){
+           throw new UserNotPermittedException();
+        }
+        else{
+            User user = userRepository.findByUsername(username).orElseThrow(UserNotFoundException::new);
+            return UserDto.toDto(user);
+        }
+    }
 }
