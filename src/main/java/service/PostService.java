@@ -5,6 +5,7 @@ import dto.PostResponseDto;
 import entity.Post;
 import entity.User;
 import excpetion.PostNotFoundException;
+import excpetion.UserNotAuthorizedException;
 import excpetion.UserNotEqualsException;
 import excpetion.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -76,7 +77,7 @@ public class PostService {
             return PostResponseDto.toDto(post);
         }
         else{
-            throw new UserNotEqualsException();
+            throw new UserNotAuthorizedException();
         }
     }
 
@@ -90,7 +91,7 @@ public class PostService {
             return "삭제 완료";
         }
         else{
-            throw new UserNotEqualsException();
+            throw new UserNotAuthorizedException();
         }
     }
 }

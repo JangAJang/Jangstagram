@@ -5,10 +5,7 @@ import dto.CommentResponseDto;
 import entity.Comment;
 import entity.Post;
 import entity.User;
-import excpetion.CommentNotFoundException;
-import excpetion.PostNotFoundException;
-import excpetion.UserNotEqualsException;
-import excpetion.UserNotFoundException;
+import excpetion.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -60,7 +57,7 @@ public class CommentService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User writer = userRepository.findByUsername(authentication.getName()).orElseThrow(UserNotFoundException::new);
         Comment comment = commentRepository.findById(commentId).orElseThrow(CommentNotFoundException::new);
-        if(!writer.equals(comment.getWriter())) throw new UserNotEqualsException();
+        if(!writer.equals(comment.getWriter())) throw new UserNotAuthorizedException();
         comment.setContent(commentRequestDto.getContent());
         commentRepository.save(comment);
         return CommentResponseDto.toDto(comment);
@@ -71,7 +68,7 @@ public class CommentService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User writer = userRepository.findByUsername(authentication.getName()).orElseThrow(UserNotFoundException::new);
         Comment comment = commentRepository.findById(commentId).orElseThrow(CommentNotFoundException::new);
-        if(!writer.equals(comment.getWriter())) throw new UserNotEqualsException();
+        if(!writer.equals(comment.getWriter())) throw new UserNotAuthorizedException();
         commentRepository.delete(comment);
         return "삭제완료";
     }

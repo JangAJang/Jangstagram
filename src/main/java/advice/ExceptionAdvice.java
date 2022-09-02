@@ -69,4 +69,10 @@ public class ExceptionAdvice {
     public Response commentNotFoundException(){
         return Response.failure(404, "댓글을 찾을 수 없습니다. ");
     }
+
+    @ExceptionHandler(UserNotAuthorizedException.class)
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+    public Response userNotAuthorizedException(){
+        return Response.failure(404, "권한이 없습니다. ");
+    }
 }
