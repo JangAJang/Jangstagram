@@ -57,4 +57,10 @@ public class ExceptionAdvice {
     public Response userNotPermittedException(){
         return Response.failure(404, "사용자 권한이 존재하지 않습니다. ");
     }
+
+    @ExceptionHandler(PostNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Response postNotFoundException(){
+        return Response.failure(404, "게시글을 확인할 수 없습니다.");
+    }
 }
