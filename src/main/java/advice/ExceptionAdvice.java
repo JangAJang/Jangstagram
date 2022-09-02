@@ -63,4 +63,10 @@ public class ExceptionAdvice {
     public Response postNotFoundException(){
         return Response.failure(404, "게시글을 확인할 수 없습니다.");
     }
+
+    @ExceptionHandler(CommentNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Response commentNotFoundException(){
+        return Response.failure(404, "댓글을 찾을 수 없습니다. ");
+    }
 }
