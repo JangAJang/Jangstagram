@@ -23,6 +23,13 @@ public class PostController {
         return Response.success(postService.getAllPosts());
     }
 
+    @ApiOperation(value = "내 게시글 조회", notes = "내 모든 게시글을 조회합니다.")
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/posts/my")
+    public Response viewMyPosts(){
+        return Response.success(postService.getAllMyPosts());
+    }
+
     @ApiOperation(value = "게시글 작성", notes = "내 게시글을 작성합니다.")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/posts/write")

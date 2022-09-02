@@ -36,8 +36,10 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public List<PostResponseDto> getAllPostsByUsername(){
-        List<Post> posts = postRepository.findAll();
+    public List<PostResponseDto> getAllMyPosts(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByUsername(authentication.getName()).orElseThrow(UserNotFoundException::new);
+        List<Post> posts = postRepository.findAllByWriter(user).orElseThrow(PostNotFoundException::new);
         List<PostResponseDto> postResponseDtos = new ArrayList<>();
         for(Post post: posts){
             postResponseDtos.add(PostResponseDto.toDto(post));
