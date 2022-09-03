@@ -75,4 +75,10 @@ public class ExceptionAdvice {
     public Response userNotAuthorizedException(){
         return Response.failure(404, "권한이 없습니다. ");
     }
+
+    @ExceptionHandler(HashtagNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Response hashtagNotFoundException(){
+        return Response.failure(404, "게시물의 해시태그를 찾을 수 없습니다. ");
+    }
 }
