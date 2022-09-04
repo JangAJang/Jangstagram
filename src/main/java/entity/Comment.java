@@ -24,12 +24,12 @@ public class Comment {
     private String content;
 
     @JoinColumn(name = "User_id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.NO_ACTION)
     private User writer;
 
     @JoinColumn(name = "Post_id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Post post;
 }

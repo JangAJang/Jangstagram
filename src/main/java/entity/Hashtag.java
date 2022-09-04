@@ -24,7 +24,12 @@ public class Hashtag {
     private String content;
 
     @JoinColumn(name = "Post_id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Post post;
+
+    @JoinColumn(name = "Comment_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Comment comment;
 }

@@ -24,7 +24,7 @@ public class Post {
     private String content;
 
     @JoinColumn(name = "User_id")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User writer;
 

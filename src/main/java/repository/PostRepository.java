@@ -12,4 +12,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findAll();
 
     Optional<List<Post>> findAllByWriter(User writer);
+
+    Optional<List<Post>> findAllByContentContaining(String content);
 }

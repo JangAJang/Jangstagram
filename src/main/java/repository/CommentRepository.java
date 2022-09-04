@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     Optional<List<Comment>> findAllByPost(Post post);
+
+    Optional<List<Comment>> findAllByContentContaining(String content);
 }
