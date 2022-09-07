@@ -83,4 +83,11 @@ public class UserController {
     public Response findUser(@RequestParam String username){
         return Response.success(userService.findUser(username));
     }
+
+    @ApiOperation(value = "토큰 재발행", notes = "토큰을 재발행합니다")
+    @PutMapping("/auth/re-issue")
+    @ResponseStatus(HttpStatus.OK)
+    public Response reissue(@RequestHeader LoginResponseDto token){
+        return Response.success(userService.reissue(token));
+    }
 }
