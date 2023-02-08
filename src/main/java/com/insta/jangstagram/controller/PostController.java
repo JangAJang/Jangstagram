@@ -17,7 +17,7 @@ public class PostController {
     }
 
     @PostMapping ("/posts/add")
-    public String post(PostCreateRequestDto postCreateRequestDto){
+    public String post(@RequestBody PostCreateRequestDto postCreateRequestDto){
         log.info("params = {}", postCreateRequestDto.toString());
         return "Hello World";
     }
