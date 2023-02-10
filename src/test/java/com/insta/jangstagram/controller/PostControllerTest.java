@@ -44,6 +44,8 @@ class PostControllerTest {
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code").value("400")) // json값 테스트
                 .andExpect(jsonPath("$.message").value("잘못된 요청입니다."))
+                .andExpect(jsonPath("$.validationField.title").value("제목을 입력하세요"))
+                .andExpect(jsonPath("$.validationField.content").value("내용을 입력하세요"))
                 .andDo(print());
     }
 }
