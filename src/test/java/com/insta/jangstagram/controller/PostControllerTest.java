@@ -40,7 +40,7 @@ class PostControllerTest {
         mvc.perform(post("/posts/add")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"title\" : \"\"," +
-                                "\"content\" : \"내용입니다\" }"))
+                                "\"content\" : \"\" }"))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.code").value("400")) // json값 테스트
                 .andExpect(jsonPath("$.message").value("잘못된 요청입니다."))
