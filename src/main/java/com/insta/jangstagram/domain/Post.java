@@ -1,13 +1,13 @@
 package com.insta.jangstagram.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Post {
 
     @Id
@@ -16,6 +16,7 @@ public class Post {
 
     private String title;
 
+    @Lob
     private String content;
 
 }
