@@ -3,10 +3,11 @@ package com.insta.jangstagram.domain;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Post {
 
@@ -19,4 +20,8 @@ public class Post {
     @Lob
     private String content;
 
+    public Post(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }
