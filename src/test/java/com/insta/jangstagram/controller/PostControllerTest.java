@@ -1,5 +1,8 @@
 package com.insta.jangstagram.controller;
 
+import com.insta.jangstagram.repository.PostRepository;
+import com.insta.jangstagram.service.PostService;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,12 @@ class PostControllerTest {
 
     @Autowired
     private MockMvc mvc;
+
+    @Autowired
+    private PostRepository postRepository;
+
+    @Autowired
+    private PostService postService;
 
     @Test
     @DisplayName("/posts를 요청하면 Hello World가 출력된다. ")
@@ -47,5 +56,21 @@ class PostControllerTest {
                 .andExpect(jsonPath("$.validationField.title").value("제목을 입력하세요"))
                 .andExpect(jsonPath("$.validationField.content").value("내용을 입력하세요"))
                 .andDo(print());
+    }
+
+    @Test
+    @DisplayName("")
+    public void dataInTest() throws Exception{
+        //given
+
+        //when
+        mvc.perform(post("/posts/add")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"title\" : \"제목\"," +
+                                "\"content\" : \"내용\" }"))
+                .andExpect(status().isOk())
+                .andDo(print());
+        //then
+        Assertions.assertThat(postRepository.count()).isEqualTo(1L);
     }
 }
