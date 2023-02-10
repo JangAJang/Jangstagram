@@ -8,6 +8,7 @@ import lombok.*;
 @ToString(of = {"title", "content"})
 public class PostCreateRequestDto {
 
+    
     private String title;
     private String content;
 }
