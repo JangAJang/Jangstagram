@@ -34,5 +34,15 @@ class PostControllerTest {
                 .andExpect(content().string("Hello World"))
                 .andDo(print());
     }
-
+    
+    @Test
+    @DisplayName("")        
+    public void testWithExceptionTitle() throws Exception{
+        mvc.perform(post("/posts/add")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"title\" : \"\"," +
+                                "\"content\" : \"내용입니다\" }"))
+                .andExpect(status().is(400))
+                .andDo(print());
+    }
 }

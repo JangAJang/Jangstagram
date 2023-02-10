@@ -1,6 +1,7 @@
 package com.insta.jangstagram.controller;
 
 import com.insta.jangstagram.dto.PostCreateRequestDto;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +18,7 @@ public class PostController {
     }
 
     @PostMapping ("/posts/add")
-    public String post(@RequestBody PostCreateRequestDto postCreateRequestDto){
+    public String post(@RequestBody @Valid PostCreateRequestDto postCreateRequestDto){
         log.info("params = {}", postCreateRequestDto.toString());
         return "Hello World";
     }
