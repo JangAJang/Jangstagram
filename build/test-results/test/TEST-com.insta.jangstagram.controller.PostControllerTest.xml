@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.insta.jangstagram.controller.PostControllerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-02-10T11:23:59" hostname="ijanghuiui-MacBookPro.local" time="0.275">
+<testsuite name="com.insta.jangstagram.controller.PostControllerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-02-10T11:45:32" hostname="ijanghuiui-MacBookPro.local" time="0.239">
   <properties/>
-  <testcase name="testWithExceptionTitle()" classname="com.insta.jangstagram.controller.PostControllerTest" time="0.275"/>
-  <system-out><![CDATA[20:23:58.753 [Test worker] DEBUG org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [PostControllerTest]: using SpringBootContextLoader
-20:23:58.754 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.insta.jangstagram.controller.PostControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
-20:23:58.755 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.insta.jangstagram.controller.PostControllerTest]: PostControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-20:23:58.772 [Test worker] DEBUG org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper - Using ContextCustomizers for test class [PostControllerTest]: [DisableAutoConfigurationContextCustomizer, DisableObservabilityContextCustomizer, TypeExcludeFiltersContextCustomizer, PropertyMappingContextCustomizer, Customizer, ImportsContextCustomizer, ExcludeFilterContextCustomizer, DuplicateJsonObjectContextCustomizer, MockitoContextCustomizer]
-20:23:58.806 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [/Users/leeeehgnaj/Desktop/Coding/Jangstagram/build/classes/java/main/com/insta/jangstagram/JangstagramApplication.class]
-20:23:58.807 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.insta.jangstagram.JangstagramApplication for test class com.insta.jangstagram.controller.PostControllerTest
-20:23:58.815 [Test worker] DEBUG org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper - Using TestExecutionListeners for test class [PostControllerTest]: [ServletTestExecutionListener, DirtiesContextBeforeModesTestExecutionListener, ApplicationEventsTestExecutionListener, MockitoTestExecutionListener, DependencyInjectionTestExecutionListener, DirtiesContextTestExecutionListener, TransactionalTestExecutionListener, SqlScriptsTestExecutionListener, EventPublishingTestExecutionListener, RestDocsTestExecutionListener, MockRestServiceServerResetTestExecutionListener, MockMvcPrintOnlyOnFailureTestExecutionListener, WebDriverTestExecutionListener, MockWebServiceServerTestExecutionListener, ResetMocksTestExecutionListener]
-20:23:58.816 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: class [PostControllerTest], class annotated with @DirtiesContext [false] with mode [null]
-20:23:58.821 [Test worker] DEBUG org.springframework.test.context.support.DependencyInjectionTestExecutionListener - Performing dependency injection for test class com.insta.jangstagram.controller.PostControllerTest
+  <testcase name="testWithExceptionTitle()" classname="com.insta.jangstagram.controller.PostControllerTest" time="0.239"/>
+  <system-out><![CDATA[20:45:31.560 [Test worker] DEBUG org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [PostControllerTest]: using SpringBootContextLoader
+20:45:31.562 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.insta.jangstagram.controller.PostControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+20:45:31.562 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.insta.jangstagram.controller.PostControllerTest]: PostControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+20:45:31.582 [Test worker] DEBUG org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper - Using ContextCustomizers for test class [PostControllerTest]: [DisableAutoConfigurationContextCustomizer, DisableObservabilityContextCustomizer, TypeExcludeFiltersContextCustomizer, PropertyMappingContextCustomizer, Customizer, ImportsContextCustomizer, ExcludeFilterContextCustomizer, DuplicateJsonObjectContextCustomizer, MockitoContextCustomizer]
+20:45:31.617 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [/Users/leeeehgnaj/Desktop/Coding/Jangstagram/build/classes/java/main/com/insta/jangstagram/JangstagramApplication.class]
+20:45:31.618 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.insta.jangstagram.JangstagramApplication for test class com.insta.jangstagram.controller.PostControllerTest
+20:45:31.627 [Test worker] DEBUG org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper - Using TestExecutionListeners for test class [PostControllerTest]: [ServletTestExecutionListener, DirtiesContextBeforeModesTestExecutionListener, ApplicationEventsTestExecutionListener, MockitoTestExecutionListener, DependencyInjectionTestExecutionListener, DirtiesContextTestExecutionListener, TransactionalTestExecutionListener, SqlScriptsTestExecutionListener, EventPublishingTestExecutionListener, RestDocsTestExecutionListener, MockRestServiceServerResetTestExecutionListener, MockMvcPrintOnlyOnFailureTestExecutionListener, WebDriverTestExecutionListener, MockWebServiceServerTestExecutionListener, ResetMocksTestExecutionListener]
+20:45:31.627 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: class [PostControllerTest], class annotated with @DirtiesContext [false] with mode [null]
+20:45:31.632 [Test worker] DEBUG org.springframework.test.context.support.DependencyInjectionTestExecutionListener - Performing dependency injection for test class com.insta.jangstagram.controller.PostControllerTest
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -20,12 +20,12 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.0.2)
 
-2023-02-10T20:23:58.961+09:00  INFO 16199 --- [    Test worker] c.i.j.controller.PostControllerTest      : Starting PostControllerTest using Java 17.0.2 with PID 16199 (started by leeeehgnaj in /Users/leeeehgnaj/Desktop/Coding/Jangstagram)
-2023-02-10T20:23:58.962+09:00  INFO 16199 --- [    Test worker] c.i.j.controller.PostControllerTest      : No active profile set, falling back to 1 default profile: "default"
-2023-02-10T20:23:59.375+09:00  INFO 16199 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2023-02-10T20:23:59.375+09:00  INFO 16199 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2023-02-10T20:23:59.376+09:00  INFO 16199 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
-2023-02-10T20:23:59.389+09:00  INFO 16199 --- [    Test worker] c.i.j.controller.PostControllerTest      : Started PostControllerTest in 0.551 seconds (process running for 1.0)
+2023-02-10T20:45:31.788+09:00  INFO 16564 --- [    Test worker] c.i.j.controller.PostControllerTest      : Starting PostControllerTest using Java 17.0.2 with PID 16564 (started by leeeehgnaj in /Users/leeeehgnaj/Desktop/Coding/Jangstagram)
+2023-02-10T20:45:31.788+09:00  INFO 16564 --- [    Test worker] c.i.j.controller.PostControllerTest      : No active profile set, falling back to 1 default profile: "default"
+2023-02-10T20:45:32.211+09:00  INFO 16564 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2023-02-10T20:45:32.211+09:00  INFO 16564 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2023-02-10T20:45:32.213+09:00  INFO 16564 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2023-02-10T20:45:32.229+09:00  INFO 16564 --- [    Test worker] c.i.j.controller.PostControllerTest      : Started PostControllerTest in 0.58 seconds (process running for 1.022)
 
 MockHttpServletRequest:
       HTTP Method = POST
@@ -37,14 +37,14 @@ MockHttpServletRequest:
 
 Handler:
              Type = com.insta.jangstagram.controller.PostController
-           Method = com.insta.jangstagram.controller.PostController#post(PostCreateRequestDto, BindingResult)
+           Method = com.insta.jangstagram.controller.PostController#post(PostCreateRequestDto)
 
 Async:
     Async started = false
      Async result = null
 
 Resolved Exception:
-             Type = null
+             Type = org.springframework.web.bind.MethodArgumentNotValidException
 
 ModelAndView:
         View name = null
@@ -55,11 +55,11 @@ FlashMap:
        Attributes = null
 
 MockHttpServletResponse:
-           Status = 200
+           Status = 400
     Error message = null
           Headers = [Content-Type:"application/json"]
      Content type = application/json
-             Body = {"title":"제목을 입력하세요"}
+             Body = {"code":"400","message":"잘못된 요청입니다."}
     Forwarded URL = null
    Redirected URL = null
           Cookies = []
