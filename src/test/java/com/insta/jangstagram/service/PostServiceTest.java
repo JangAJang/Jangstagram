@@ -44,13 +44,18 @@ class PostServiceTest {
     @DisplayName("글 한개 조회")
     public void getOneTest() throws Exception{
         //given
-        Long postId = 1L;
+        Post post = Post.builder()
+                .title("myPage1")
+                .content("this is my page no1").build();
+        postRepository.save(post);
 
         //when
-        PostCreateRequestDto readOne = postService.getOne(postId);
+        PostCreateRequestDto readOne = postService.getOne(post.getId());
 
         //then
         assertThat(readOne).isNotNull();
+        assertThat(readOne.getTitle()).isEqualTo(post.getTitle());
+        assertThat(readOne.getContent()).isEqualTo(post.getContent());
     }
 
 }
