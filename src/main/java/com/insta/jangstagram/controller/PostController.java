@@ -28,7 +28,7 @@ public class PostController {
     }
 
     @GetMapping("/posts/{id}")
-    public PostCreateRequestDto getOne(@RequestParam Long id){
+    public PostCreateRequestDto getOne(@RequestParam(value = "id") Long id){
         return postService.getOne(id);
     }
 }
