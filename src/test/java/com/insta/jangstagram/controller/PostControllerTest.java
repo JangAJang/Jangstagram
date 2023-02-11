@@ -1,5 +1,6 @@
 package com.insta.jangstagram.controller;
 
+import com.insta.jangstagram.domain.Post;
 import com.insta.jangstagram.repository.PostRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,6 +11,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+
+import static org.assertj.core.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -75,8 +78,11 @@ class PostControllerTest {
                                 "\"content\" : \"내용\" }"))
                 .andExpect(status().isOk())
                 .andDo(print());
+        Post post = postRepository.findAll().get(0);
         //then
-        Assertions.assertThat(postRepository.count()).isEqualTo(1L);
+        assertThat(postRepository.count()).isEqualTo(1L);
+        assertThat(post.getTitle()).isEqualTo("제목");
+        assertThat(post.getContent()).isEqualTo("내용");
         //유닛단위에서는 1개가 맞지만 전체 테스트시에는 2개가 등록된다.
     }
 }
