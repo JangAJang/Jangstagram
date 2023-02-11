@@ -1,10 +1,7 @@
 package com.insta.jangstagram.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Getter
@@ -20,6 +17,7 @@ public class Post {
     @Lob
     private String content;
 
+    @Builder
     public Post(String title, String content) {
         this.title = title;
         this.content = content;

@@ -15,7 +15,10 @@ public class PostService {
     private final PostRepository postRepository;
 
     public void write(PostCreateRequestDto postCreateRequestDto){
-        Post post = new Post(postCreateRequestDto.getTitle(), postCreateRequestDto.getContent());
+        Post post = Post.builder()
+                        .title(postCreateRequestDto.getTitle())
+                        .content(postCreateRequestDto.getContent())
+                        .build();
         postRepository.save(post);
     }
 }
