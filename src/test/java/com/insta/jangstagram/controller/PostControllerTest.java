@@ -95,6 +95,21 @@ class PostControllerTest {
         //유닛단위에서는 1개가 맞지만 전체 테스트시에는 2개가 등록된다.
     }
 
+    @Test
+    @DisplayName("글 한개 조회할 때 제목과 내용 비교")
+    public void getOneTest() throws Exception{
+        //given
+        Post post = Post.builder()
+                .title("title")
+                .content("content").build();
+        postRepository.save(post);
+        //expected
+        mvc.perform(get("/posts/{postId}", post.getId())
+                .contentType(APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+
     private String makeJson(Object object){
         try {
             return new ObjectMapper().writeValueAsString(object);
