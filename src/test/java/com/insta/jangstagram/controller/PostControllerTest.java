@@ -63,7 +63,7 @@ class PostControllerTest {
     @DisplayName("")        
     public void testWithExceptionTitle() throws Exception{
         //given
-        String json = makeJson(new PostCreateRequestDto("", ""));
+        String json = makeJson(PostCreateRequestDto.builder().title("").content("").build());
         //when
 
         //ten

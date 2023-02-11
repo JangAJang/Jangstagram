@@ -7,6 +7,7 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @ToString(of = {"title", "content"})
+@Builder
 public class PostCreateRequestDto {
 
     @NotBlank(message = "제목을 입력하세요")
