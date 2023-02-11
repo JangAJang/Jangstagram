@@ -107,6 +107,25 @@ class PostControllerTest {
         mvc.perform(get("/posts/{postId}", post.getId())
                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").value("title"))
+                .andExpect(jsonPath("$.content").value("content"))
+                .andDo(print());
+    }
+
+    @Test
+    @DisplayName("글 한개 조회할 때 제목과 내용 비교")
+    public void getOneTest_FAIL() throws Exception{
+        //given
+        Post post = Post.builder()
+                .title("title")
+                .content("content").build();
+        postRepository.save(post);
+        //expected
+        mvc.perform(get("/posts/{postId}", post.getId())
+                .contentType(APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.title").value("title"))
+                .andExpect(jsonPath("$.content").value("1111")) //FAIL
                 .andDo(print());
     }
 
