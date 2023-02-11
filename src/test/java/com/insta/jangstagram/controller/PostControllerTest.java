@@ -2,6 +2,7 @@ package com.insta.jangstagram.controller;
 
 import com.insta.jangstagram.repository.PostRepository;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ class PostControllerTest {
     @Autowired
     private PostRepository postRepository;
 
+    @BeforeEach
+    void cleanDB(){
+        postRepository.deleteAll();
+    }
+
     @Test
     @DisplayName("/posts를 요청하면 Hello World가 출력된다. ")
     public void getTest() throws Exception{
@@ -39,6 +45,7 @@ class PostControllerTest {
                 .andExpect(content().string("{}"))
                 .andExpect(status().isOk())
                 .andDo(print());
+        //여기에서 하나가 등록되기 때문에, 다음이 등록되었을 떄 2개로 나온다.
     }
     
     @Test
@@ -57,7 +64,7 @@ class PostControllerTest {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("전체 테스트를 수행하면, 총 2개의 데이터가 존재한다. ")
     public void dataInTest() throws Exception{
         //given
 
@@ -70,5 +77,6 @@ class PostControllerTest {
                 .andDo(print());
         //then
         Assertions.assertThat(postRepository.count()).isEqualTo(1L);
+        //유닛단위에서는 1개가 맞지만 전체 테스트시에는 2개가 등록된다.
     }
 }
