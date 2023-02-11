@@ -59,4 +59,22 @@ class PostServiceTest {
         assertThat(readOne.getContent()).isEqualTo(post.getContent());
     }
 
+    @Test
+    @DisplayName("제목이 10글자 이상이면 10글자까지만 나온다. ")
+    public void getOneTest_Title_Length() throws Exception{
+        //given
+        Post post = Post.builder()
+                .title("12345678901234567890")
+                .content("this is my page no1").build();
+        postRepository.save(post);
+
+        //when
+        PostResponseDto readOne = postService.getOne(post.getId());
+
+        //then
+        assertThat(readOne).isNotNull();
+        assertThat(readOne.getTitle()).isEqualTo("1234567890");
+        assertThat(readOne.getContent()).isEqualTo(post.getContent());
+    }
+
 }
