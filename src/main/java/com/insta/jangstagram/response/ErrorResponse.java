@@ -1,5 +1,6 @@
 package com.insta.jangstagram.response;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -8,6 +9,7 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @Getter
+@Builder
 public class ErrorResponse {
 
     private final String code;
