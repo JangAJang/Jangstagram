@@ -17,7 +17,7 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping("/posts")
-    public String get(){
+    public String getList(){
         return "Hello World";
     }
 
@@ -27,7 +27,7 @@ public class PostController {
         return Map.of();
     }
 
-    @GetMapping("/posts")
+    @GetMapping("/posts/{id}")
     public PostCreateRequestDto getOne(@RequestParam Long id){
         return postService.getOne(id);
     }

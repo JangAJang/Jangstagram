@@ -29,7 +29,8 @@ public class PostService {
 
     @Transactional(readOnly = true)
     public PostCreateRequestDto getOne(Long id) {
-        Post post = postRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        Post post = postRepository.findById(id)
+                .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 글입니다"));
         return PostCreateRequestDto.builder()
                 .title(post.getTitle())
                 .content(post.getContent())

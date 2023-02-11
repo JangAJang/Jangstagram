@@ -14,7 +14,6 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@Transactional
 class PostServiceTest {
 
     @Autowired
@@ -24,7 +23,7 @@ class PostServiceTest {
     private PostRepository postRepository;
     
     @Test
-    @DisplayName("")
+    @DisplayName("글 생성")
     public void writeTest() throws Exception{
         //given
         PostCreateRequestDto postCreateRequestDto = PostCreateRequestDto.builder()
@@ -39,6 +38,19 @@ class PostServiceTest {
         Post post = postRepository.findAll().get(0);
         assertThat(post.getTitle()).isEqualTo("제목입니다.");
         assertThat(post.getContent()).isEqualTo("내용입니다.");
+    }
+
+    @Test
+    @DisplayName("글 한개 조회")
+    public void getOneTest() throws Exception{
+        //given
+        Long postId = 1L;
+
+        //when
+        PostCreateRequestDto readOne = postService.getOne(postId);
+
+        //then
+        assertThat(readOne).isNotNull();
     }
 
 }
