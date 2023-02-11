@@ -20,5 +20,6 @@ public class PostService {
                         .content(postCreateRequestDto.getContent())
                         .build();
         postRepository.save(post);
+
     }
 }
