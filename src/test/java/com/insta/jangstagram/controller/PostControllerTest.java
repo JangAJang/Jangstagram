@@ -1,19 +1,20 @@
 package com.insta.jangstagram.controller;
 
 import com.insta.jangstagram.repository.PostRepository;
-import com.insta.jangstagram.service.PostService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest
+@SpringBootTest
+@AutoConfigureMockMvc
 class PostControllerTest {
 
     @Autowired
@@ -21,9 +22,6 @@ class PostControllerTest {
 
     @Autowired
     private PostRepository postRepository;
-
-    @Autowired
-    private PostService postService;
 
     @Test
     @DisplayName("/posts를 요청하면 Hello World가 출력된다. ")
