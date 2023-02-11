@@ -2,6 +2,7 @@ package com.insta.jangstagram.service;
 
 import com.insta.jangstagram.domain.Post;
 import com.insta.jangstagram.dto.PostCreateRequestDto;
+import com.insta.jangstagram.dto.PostResponseDto;
 import com.insta.jangstagram.repository.PostRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -50,7 +51,7 @@ class PostServiceTest {
         postRepository.save(post);
 
         //when
-        PostCreateRequestDto readOne = postService.getOne(post.getId());
+        PostResponseDto readOne = postService.getOne(post.getId());
 
         //then
         assertThat(readOne).isNotNull();

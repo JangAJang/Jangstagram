@@ -1,6 +1,7 @@
 package com.insta.jangstagram.controller;
 
 import com.insta.jangstagram.dto.PostCreateRequestDto;
+import com.insta.jangstagram.dto.PostResponseDto;
 import com.insta.jangstagram.service.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +29,7 @@ public class PostController {
     }
 
     @GetMapping("/posts/{id}")
-    public PostCreateRequestDto getOne(@PathVariable("id") Long id){
+    public PostResponseDto getOne(@PathVariable("id") Long id){
         return postService.getOne(id);
     }
 }

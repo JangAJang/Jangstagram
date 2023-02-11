@@ -125,7 +125,7 @@ class PostControllerTest {
                 .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title").value("title"))
-                .andExpect(jsonPath("$.content").value("1111")) //FAIL
+                .andExpect(jsonPath("$.content").value("SHOULD_FAIL")) //FAIL
                 .andDo(print());
     }
 

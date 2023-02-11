@@ -2,6 +2,7 @@ package com.insta.jangstagram.service;
 
 import com.insta.jangstagram.domain.Post;
 import com.insta.jangstagram.dto.PostCreateRequestDto;
+import com.insta.jangstagram.dto.PostResponseDto;
 import com.insta.jangstagram.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,12 +29,12 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public PostCreateRequestDto getOne(Long id) {
+    public PostResponseDto getOne(Long id) {
         Post post = postRepository.findById(id)
                 .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 글입니다"));
-        return PostCreateRequestDto.builder()
+        return PostResponseDto.builder()
+                .id(post.getId())
                 .title(post.getTitle())
-                .content(post.getContent())
-                .build();
+                .content(post.getContent()).build();
     }
 }
