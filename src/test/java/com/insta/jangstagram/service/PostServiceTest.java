@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -84,12 +85,12 @@ class PostServiceTest {
     @DisplayName("글 전체 조회")
     public void getListTest() throws Exception{
         //given
-        for(int index = 1; index <= 10; index++){
-            Post post = Post.builder()
-                    .title("myPage"+index)
-                    .content("this is my page no"+index).build();
-            postRepository.save(post);
-        }
+        List<Post> posts = IntStream.range(0, 30)
+                .mapToObj( i -> Post.builder()
+                        .title("title"+i)
+                        .content("content"+i).build())
+                .toList();
+        postRepository.saveAll(posts);
 
         //when
         List<PostResponseDto> result = postService.getList();
