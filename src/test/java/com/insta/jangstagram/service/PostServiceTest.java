@@ -9,6 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
@@ -105,6 +106,29 @@ class PostServiceTest {
         assertThat(page1.size()).isEqualTo(5);
         assertThat(page1.stream().map(PostResponseDto::getTitle).collect(Collectors.toList()))
                 .containsExactly("title6", "title7", "title8", "title9", "title10");
+    }
+
+    @Test
+    @DisplayName("querydsl 페이징 조회시에 최근 게시물 순으로 페이지로 결과가 나온다.")
+    public void getPageTest() throws Exception{
+        //given
+        List<Post> posts = IntStream.range(1, 31)
+                .mapToObj( i -> Post.builder()
+                        .title("title"+i)
+                        .content("content"+i).build())
+                .toList();
+        postRepository.saveAll(posts);
+        //when
+        Page<PostResponseDto> page0 = postService.getPage(PageRequest.of(0, 5));
+        Page<PostResponseDto> page1 = postService.getPage(PageRequest.of(1, 5));
+
+        //then
+        assertThat(page0.getContent().size()).isEqualTo(5);
+        assertThat(page0.stream().map(PostResponseDto::getTitle).collect(Collectors.toList()))
+                .containsExactly("title30", "title29", "title28", "title27", "title26");
+        assertThat(page1.getContent().size()).isEqualTo(5);
+        assertThat(page1.stream().map(PostResponseDto::getTitle).collect(Collectors.toList()))
+                .containsExactly("title25", "title24", "title23", "title22", "title21");
     }
 
 }
