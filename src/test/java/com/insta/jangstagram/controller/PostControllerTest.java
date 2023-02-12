@@ -127,7 +127,7 @@ class PostControllerTest {
                 .toList();
         postRepository.saveAll(posts);
         //expected
-        mvc.perform(get("/posts?page={page}&size={size}", 0, 5)
+        mvc.perform(get("/posts?page={page}&size={size}", 1, 5)
                         .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()", Matchers.is(5)))
