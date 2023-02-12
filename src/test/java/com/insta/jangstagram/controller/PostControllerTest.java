@@ -117,8 +117,8 @@ class PostControllerTest {
     }
 
     @Test
-    @DisplayName("일반적인 페이지와 사이즈만 파라미터로 입력되면 해당 페이지에 사이즈만큼 페이징처리해서 반환해준다.")
-    public void getListTest() throws Exception{
+    @DisplayName("페이지만 입력되면 10개씩 역순으로 페이지에 출력해준다..")
+    public void getPageTest() throws Exception{
         //given
         List<Post> posts = IntStream.range(1, 31)
                 .mapToObj( i -> Post.builder()
@@ -127,20 +127,20 @@ class PostControllerTest {
                 .toList();
         postRepository.saveAll(posts);
         //expected
-        mvc.perform(get("/posts?page={page}&size={size}", 1, 5)
+        mvc.perform(get("/posts?page={page}", 1)
                         .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.length()", Matchers.is(5)))
-                .andExpect(jsonPath("$.[0].title").value("title1"))
-                .andExpect(jsonPath("$.[0].content").value("content1"))
-                .andExpect(jsonPath("$.[1].title").value("title2"))
-                .andExpect(jsonPath("$.[1].content").value("content2"))
-                .andExpect(jsonPath("$.[2].title").value("title3"))
-                .andExpect(jsonPath("$.[2].content").value("content3"))
-                .andExpect(jsonPath("$.[3].title").value("title4"))
-                .andExpect(jsonPath("$.[3].content").value("content4"))
-                .andExpect(jsonPath("$.[4].title").value("title5"))
-                .andExpect(jsonPath("$.[4].content").value("content5"))
+                .andExpect(jsonPath("$.content.length()", Matchers.is(10)))
+                .andExpect(jsonPath("$.content.[0].title").value("title30"))
+                .andExpect(jsonPath("$.content.[1].title").value("title29"))
+                .andExpect(jsonPath("$.content.[2].title").value("title28"))
+                .andExpect(jsonPath("$.content.[3].title").value("title27"))
+                .andExpect(jsonPath("$.content.[4].title").value("title26"))
+                .andExpect(jsonPath("$.content.[5].title").value("title25"))
+                .andExpect(jsonPath("$.content.[6].title").value("title24"))
+                .andExpect(jsonPath("$.content.[7].title").value("title23"))
+                .andExpect(jsonPath("$.content.[8].title").value("title22"))
+                .andExpect(jsonPath("$.content.[9].title").value("title21"))
                 .andDo(print());
     }
 
