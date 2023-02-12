@@ -117,10 +117,10 @@ class PostControllerTest {
     }
 
     @Test
-    @DisplayName("글 전체 조회할 때 제목과 내용 비교")
+    @DisplayName("일반적인 페이지와 사이즈만 파라미터로 입력되면 해당 페이지에 사이즈만큼 페이징처리해서 반환해준다.")
     public void getListTest() throws Exception{
         //given
-        List<Post> posts = IntStream.range(1, 30)
+        List<Post> posts = IntStream.range(1, 31)
                 .mapToObj( i -> Post.builder()
                         .title("title"+i)
                         .content("content"+i).build())
