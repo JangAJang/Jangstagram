@@ -6,6 +6,7 @@ import com.insta.jangstagram.dto.PostResponseDto;
 import com.insta.jangstagram.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -46,5 +47,9 @@ public class PostService {
         return postRepository.findAll(pageable).stream()
                 .map(s -> new PostResponseDto(s.getId(), s.getTitle(), s.getContent()))
                 .collect(Collectors.toList());
+    }
+
+    public Page<PostResponseDto> getPage(Pageable pageable){
+        return postRepository.getPage(pageable);
     }
 }

@@ -6,6 +6,7 @@ import com.insta.jangstagram.service.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class PostController {
     }
 
     @GetMapping("/posts")
-    public List<PostResponseDto> getList(@PageableDefault Pageable pageable){
-        return postService.getList(pageable);
+    public Page<PostResponseDto> getList(@PageableDefault Pageable pageable){
+        return postService.getPage(pageable);
     }
 }
