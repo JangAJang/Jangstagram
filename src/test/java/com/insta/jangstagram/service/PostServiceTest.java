@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -75,6 +78,27 @@ class PostServiceTest {
         assertThat(readOne).isNotNull();
         assertThat(readOne.getTitle()).isEqualTo("1234567890");
         assertThat(readOne.getContent()).isEqualTo(post.getContent());
+    }
+
+    @Test
+    @DisplayName("글 전체 조회")
+    public void getListTest() throws Exception{
+        //given
+        for(int index = 1; index <= 10; index++){
+            Post post = Post.builder()
+                    .title("myPage"+index)
+                    .content("this is my page no"+index).build();
+            postRepository.save(post);
+        }
+
+        //when
+        List<PostResponseDto> result = postService.getList();
+
+        //then
+        assertThat(result.size()).isEqualTo(10);
+        assertThat(result.stream().map(PostResponseDto::getTitle).collect(Collectors.toList()))
+                .containsExactly("myPage1", "myPage2", "myPage3", "myPage4", "myPage5",
+                        "myPage6", "myPage7", "myPage8", "myPage9", "myPage10");
     }
 
 }

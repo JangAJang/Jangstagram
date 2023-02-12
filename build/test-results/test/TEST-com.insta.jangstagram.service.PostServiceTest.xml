@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.insta.jangstagram.service.PostServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-02-11T14:55:27" hostname="ijanghuiui-MacBookPro.local" time="0.141">
+<testsuite name="com.insta.jangstagram.service.PostServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-02-12T11:55:36" hostname="ijanghuiui-MacBookPro.local" time="0.186">
   <properties/>
-  <testcase name="제목이 10글자 이상이면 10글자까지만 나온다." classname="com.insta.jangstagram.service.PostServiceTest" time="0.141"/>
-  <system-out><![CDATA[23:55:26.262 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [PostServiceTest]: using SpringBootContextLoader
-23:55:26.264 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.insta.jangstagram.service.PostServiceTest]: no resource found for suffixes {-context.xml, Context.groovy}.
-23:55:26.264 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.insta.jangstagram.service.PostServiceTest]: PostServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-23:55:26.274 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using ContextCustomizers for test class [PostServiceTest]: [DisableObservabilityContextCustomizer, PropertyMappingContextCustomizer, Customizer, ExcludeFilterContextCustomizer, DuplicateJsonObjectContextCustomizer, MockitoContextCustomizer, TestRestTemplateContextCustomizer]
-23:55:26.307 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [/Users/leeeehgnaj/Desktop/Coding/Jangstagram/build/classes/java/main/com/insta/jangstagram/JangstagramApplication.class]
-23:55:26.308 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.insta.jangstagram.JangstagramApplication for test class com.insta.jangstagram.service.PostServiceTest
-23:55:26.344 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners for test class [PostServiceTest]: [ServletTestExecutionListener, DirtiesContextBeforeModesTestExecutionListener, ApplicationEventsTestExecutionListener, MockitoTestExecutionListener, DependencyInjectionTestExecutionListener, DirtiesContextTestExecutionListener, TransactionalTestExecutionListener, SqlScriptsTestExecutionListener, EventPublishingTestExecutionListener, RestDocsTestExecutionListener, MockRestServiceServerResetTestExecutionListener, MockMvcPrintOnlyOnFailureTestExecutionListener, WebDriverTestExecutionListener, MockWebServiceServerTestExecutionListener, ResetMocksTestExecutionListener]
-23:55:26.345 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: class [PostServiceTest], class annotated with @DirtiesContext [false] with mode [null]
+  <testcase name="글 한개 조회" classname="com.insta.jangstagram.service.PostServiceTest" time="0.186"/>
+  <system-out><![CDATA[20:55:34.497 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [PostServiceTest]: using SpringBootContextLoader
+20:55:34.500 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.insta.jangstagram.service.PostServiceTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+20:55:34.501 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.insta.jangstagram.service.PostServiceTest]: PostServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+20:55:34.514 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using ContextCustomizers for test class [PostServiceTest]: [DisableObservabilityContextCustomizer, PropertyMappingContextCustomizer, Customizer, ExcludeFilterContextCustomizer, DuplicateJsonObjectContextCustomizer, MockitoContextCustomizer, TestRestTemplateContextCustomizer]
+20:55:34.554 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [/Users/leeeehgnaj/Desktop/Coding/Jangstagram/build/classes/java/main/com/insta/jangstagram/JangstagramApplication.class]
+20:55:34.555 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.insta.jangstagram.JangstagramApplication for test class com.insta.jangstagram.service.PostServiceTest
+20:55:34.599 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners for test class [PostServiceTest]: [ServletTestExecutionListener, DirtiesContextBeforeModesTestExecutionListener, ApplicationEventsTestExecutionListener, MockitoTestExecutionListener, DependencyInjectionTestExecutionListener, DirtiesContextTestExecutionListener, TransactionalTestExecutionListener, SqlScriptsTestExecutionListener, EventPublishingTestExecutionListener, RestDocsTestExecutionListener, MockRestServiceServerResetTestExecutionListener, MockMvcPrintOnlyOnFailureTestExecutionListener, WebDriverTestExecutionListener, MockWebServiceServerTestExecutionListener, ResetMocksTestExecutionListener]
+20:55:34.600 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: class [PostServiceTest], class annotated with @DirtiesContext [false] with mode [null]
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -19,21 +19,21 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v3.0.2)
 
-2023-02-11T23:55:26.472+09:00  INFO 24539 --- [    Test worker] c.i.jangstagram.service.PostServiceTest  : Starting PostServiceTest using Java 17.0.2 with PID 24539 (started by leeeehgnaj in /Users/leeeehgnaj/Desktop/Coding/Jangstagram)
-2023-02-11T23:55:26.474+09:00  INFO 24539 --- [    Test worker] c.i.jangstagram.service.PostServiceTest  : No active profile set, falling back to 1 default profile: "default"
-2023-02-11T23:55:26.745+09:00  INFO 24539 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-02-11T23:55:26.769+09:00  INFO 24539 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 19 ms. Found 1 JPA repository interfaces.
-2023-02-11T23:55:26.921+09:00  INFO 24539 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2023-02-11T23:55:27.001+09:00  INFO 24539 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:bd6c389b-f3dd-4553-8bda-61b42fa1f8ad user=SA
-2023-02-11T23:55:27.002+09:00  INFO 24539 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2023-02-11T23:55:27.021+09:00  INFO 24539 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-02-11T23:55:27.048+09:00  INFO 24539 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.6.Final
-2023-02-11T23:55:27.111+09:00  WARN 24539 --- [    Test worker] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-02-11T23:55:27.163+09:00  INFO 24539 --- [    Test worker] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
-2023-02-11T23:55:27.445+09:00  INFO 24539 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-02-11T23:55:27.449+09:00  INFO 24539 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-02-11T23:55:27.628+09:00  WARN 24539 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2023-02-11T23:55:27.777+09:00  INFO 24539 --- [    Test worker] c.i.jangstagram.service.PostServiceTest  : Started PostServiceTest in 1.411 seconds (process running for 1.855)
+2023-02-12T20:55:34.731+09:00  INFO 17235 --- [    Test worker] c.i.jangstagram.service.PostServiceTest  : Starting PostServiceTest using Java 17.0.2 with PID 17235 (started by leeeehgnaj in /Users/leeeehgnaj/Desktop/Coding/Jangstagram)
+2023-02-12T20:55:34.731+09:00  INFO 17235 --- [    Test worker] c.i.jangstagram.service.PostServiceTest  : No active profile set, falling back to 1 default profile: "default"
+2023-02-12T20:55:35.014+09:00  INFO 17235 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-02-12T20:55:35.037+09:00  INFO 17235 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 19 ms. Found 1 JPA repository interfaces.
+2023-02-12T20:55:35.218+09:00  INFO 17235 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-02-12T20:55:35.302+09:00  INFO 17235 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:7cdac90e-7bb5-4eac-a062-fe5b85f55ccf user=SA
+2023-02-12T20:55:35.302+09:00  INFO 17235 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-02-12T20:55:35.324+09:00  INFO 17235 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-02-12T20:55:35.353+09:00  INFO 17235 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-02-12T20:55:35.423+09:00  WARN 17235 --- [    Test worker] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-02-12T20:55:35.485+09:00  INFO 17235 --- [    Test worker] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2023-02-12T20:55:35.780+09:00  INFO 17235 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-02-12T20:55:35.784+09:00  INFO 17235 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-02-12T20:55:35.959+09:00  WARN 17235 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-02-12T20:55:36.105+09:00  INFO 17235 --- [    Test worker] c.i.jangstagram.service.PostServiceTest  : Started PostServiceTest in 1.483 seconds (process running for 1.952)
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
