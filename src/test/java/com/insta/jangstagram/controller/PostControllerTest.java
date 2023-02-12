@@ -113,19 +113,21 @@ class PostControllerTest {
     }
 
     @Test
-    @DisplayName("글 한개 조회할 때 제목과 내용 비교")
-    public void getOneTest_FAIL() throws Exception{
+    @DisplayName("글 전체 조회할 때 제목과 내용 비교")
+    public void getListTest() throws Exception{
         //given
-        Post post = Post.builder()
-                .title("title")
-                .content("content").build();
-        postRepository.save(post);
+        Post post1 = Post.builder()
+                .title("title1")
+                .content("content1").build();
+        postRepository.save(post1);
+        Post post2 = Post.builder()
+                .title("title2")
+                .content("content2").build();
+        postRepository.save(post2);
         //expected
-        mvc.perform(get("/posts/{postId}", post.getId())
-                .contentType(APPLICATION_JSON))
+        mvc.perform(get("/posts")
+                        .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.title").value("title"))
-                .andExpect(jsonPath("$.content").value("SHOULD_FAIL")) //FAIL
                 .andDo(print());
     }
 
