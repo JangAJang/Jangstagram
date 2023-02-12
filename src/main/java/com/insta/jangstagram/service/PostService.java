@@ -7,6 +7,7 @@ import com.insta.jangstagram.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,9 +42,8 @@ public class PostService {
                 .content(post.getContent()).build();
     }
 
-    public List<PostResponseDto> getList(int page) {
-        PageRequest pageRequest = PageRequest.of(page, 5);
-        return postRepository.findAll(pageRequest).stream()
+    public List<PostResponseDto> getList(Pageable pageable) {
+        return postRepository.findAll(pageable).stream()
                 .map(s -> new PostResponseDto(s.getId(), s.getTitle(), s.getContent()))
                 .collect(Collectors.toList());
     }
