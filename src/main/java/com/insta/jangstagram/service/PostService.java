@@ -9,7 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -36,5 +38,11 @@ public class PostService {
                 .id(post.getId())
                 .title(post.getTitle())
                 .content(post.getContent()).build();
+    }
+
+    public List<PostResponseDto> getList() {
+        return postRepository.findAll().stream()
+                .map(s -> new PostResponseDto(s.getId(), s.getTitle(), s.getContent()))
+                .collect(Collectors.toList());
     }
 }

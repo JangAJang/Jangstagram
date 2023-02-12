@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -16,11 +17,6 @@ import java.util.Map;
 public class PostController {
 
     private final PostService postService;
-
-    @GetMapping("/posts")
-    public String getList(){
-        return "Hello World";
-    }
 
     @PostMapping ("/posts/add")
     public Map<String, String> post(@RequestBody @Valid PostCreateRequestDto postCreateRequestDto){
@@ -31,5 +27,10 @@ public class PostController {
     @GetMapping("/posts/{id}")
     public PostResponseDto getOne(@PathVariable("id") Long id){
         return postService.getOne(id);
+    }
+
+    @GetMapping("/posts")
+    public List<PostResponseDto> getList(){
+        return postService.getList();
     }
 }
