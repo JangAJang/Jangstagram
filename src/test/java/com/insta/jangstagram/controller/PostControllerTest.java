@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.insta.jangstagram.domain.Post;
 import com.insta.jangstagram.dto.PostCreateRequestDto;
 import com.insta.jangstagram.repository.PostRepository;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -128,6 +129,11 @@ class PostControllerTest {
         mvc.perform(get("/posts")
                         .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()", Matchers.is(2)))
+                .andExpect(jsonPath("$.[0].title").value("title1"))
+                .andExpect(jsonPath("$.[1].title").value("title2"))
+                .andExpect(jsonPath("$.[0].content").value("content1"))
+                .andExpect(jsonPath("$.[1].content").value("content2"))
                 .andDo(print());
     }
 
