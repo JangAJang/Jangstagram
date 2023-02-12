@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -94,8 +95,8 @@ class PostServiceTest {
         postRepository.saveAll(posts);
 
         //when
-        List<PostResponseDto> page0 = postService.getList(PageRequest.of(0, 5));
-        List<PostResponseDto> page1 = postService.getList(PageRequest.of(1, 5));
+        List<PostResponseDto> page0 = postService.getList(PageRequest.of(0, 5, Sort.Direction.ASC, "id"));
+        List<PostResponseDto> page1 = postService.getList(PageRequest.of(1, 5, Sort.Direction.ASC, "id"));
 
         //then
         assertThat(page0.size()).isEqualTo(5);
