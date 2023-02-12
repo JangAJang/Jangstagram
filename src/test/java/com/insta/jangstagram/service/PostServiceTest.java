@@ -82,10 +82,10 @@ class PostServiceTest {
     }
 
     @Test
-    @DisplayName("글 전체 조회")
+    @DisplayName("글 1페이지 조회시에 1~5가 나온다.")
     public void getListTest() throws Exception{
         //given
-        List<Post> posts = IntStream.range(0, 30)
+        List<Post> posts = IntStream.range(1, 30)
                 .mapToObj( i -> Post.builder()
                         .title("title"+i)
                         .content("content"+i).build())
@@ -93,13 +93,16 @@ class PostServiceTest {
         postRepository.saveAll(posts);
 
         //when
-        List<PostResponseDto> result = postService.getList();
+        List<PostResponseDto> page0 = postService.getList(0);
+        List<PostResponseDto> page1 = postService.getList(1);
 
         //then
-        assertThat(result.size()).isEqualTo(10);
-        assertThat(result.stream().map(PostResponseDto::getTitle).collect(Collectors.toList()))
-                .containsExactly("myPage1", "myPage2", "myPage3", "myPage4", "myPage5",
-                        "myPage6", "myPage7", "myPage8", "myPage9", "myPage10");
+        assertThat(page0.size()).isEqualTo(5);
+        assertThat(page0.stream().map(PostResponseDto::getTitle).collect(Collectors.toList()))
+                .containsExactly("title1", "title2", "title3", "title4", "title5");
+        assertThat(page1.size()).isEqualTo(5);
+        assertThat(page1.stream().map(PostResponseDto::getTitle).collect(Collectors.toList()))
+                .containsExactly("title6", "title7", "title8", "title9", "title10");
     }
 
 }
