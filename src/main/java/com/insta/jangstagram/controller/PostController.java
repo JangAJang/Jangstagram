@@ -30,7 +30,7 @@ public class PostController {
     }
 
     @GetMapping("/posts")
-    public List<PostResponseDto> getList(){
-        return postService.getList(1);
+    public List<PostResponseDto> getList(@RequestParam int page){
+        return postService.getList(page);
     }
 }

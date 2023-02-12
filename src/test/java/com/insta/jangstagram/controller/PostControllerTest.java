@@ -14,6 +14,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.List;
+import java.util.stream.IntStream;
+
 import static org.assertj.core.api.Assertions.*;
 import static org.springframework.http.MediaType.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -117,23 +120,27 @@ class PostControllerTest {
     @DisplayName("글 전체 조회할 때 제목과 내용 비교")
     public void getListTest() throws Exception{
         //given
-        Post post1 = Post.builder()
-                .title("title1")
-                .content("content1").build();
-        postRepository.save(post1);
-        Post post2 = Post.builder()
-                .title("title2")
-                .content("content2").build();
-        postRepository.save(post2);
+        List<Post> posts = IntStream.range(1, 30)
+                .mapToObj( i -> Post.builder()
+                        .title("title"+i)
+                        .content("content"+i).build())
+                .toList();
+        postRepository.saveAll(posts);
         //expected
-        mvc.perform(get("/posts")
+        mvc.perform(get("/posts?page={page}", 0)
                         .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.length()", Matchers.is(2)))
+                .andExpect(jsonPath("$.length()", Matchers.is(5)))
                 .andExpect(jsonPath("$.[0].title").value("title1"))
-                .andExpect(jsonPath("$.[1].title").value("title2"))
                 .andExpect(jsonPath("$.[0].content").value("content1"))
+                .andExpect(jsonPath("$.[1].title").value("title2"))
                 .andExpect(jsonPath("$.[1].content").value("content2"))
+                .andExpect(jsonPath("$.[2].title").value("title3"))
+                .andExpect(jsonPath("$.[2].content").value("content3"))
+                .andExpect(jsonPath("$.[3].title").value("title4"))
+                .andExpect(jsonPath("$.[3].content").value("content4"))
+                .andExpect(jsonPath("$.[4].title").value("title5"))
+                .andExpect(jsonPath("$.[4].content").value("content5"))
                 .andDo(print());
     }
 
