@@ -52,4 +52,11 @@ public class PostService {
     public Page<PostResponseDto> getPage(Pageable pageable){
         return postRepository.getPage(pageable);
     }
+
+    public void edit(Long id, PostEditRequestDto postEdit){
+        Post post = postRepository.findById(id)
+                .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 글입니다"));
+        post.changeTitle("수정제목");
+        post.changeContent("수정내용");
+    }
 }

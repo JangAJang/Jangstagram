@@ -22,4 +22,12 @@ public class Post {
         this.title = title;
         this.content = content;
     }
+
+    public void changeTitle(String newTitle) {
+        this.title = newTitle;
+    }
+
+    public void changeContent(String newContent) {
+        this.content = newContent;
+    }
 }
