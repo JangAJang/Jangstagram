@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
@@ -145,12 +144,37 @@ class PostServiceTest {
 
         PostEditRequestDto dto = PostEditRequestDto.builder()
                 .title("진짜 취업")
+                .content("하고싶다.")
                 .build();
         //when
         postService.edit(post.getId(), dto);
         //then
-        postRepository.findById(post.getId()).orElseThrow(()-> new RuntimeException("글 조회 실패 : " + post.getId()));
+        postRepository.findById(post.getId())
+                .orElseThrow(()-> new RuntimeException("글 조회 실패 : " + post.getId()));
         assertThat(post.getTitle()).isEqualTo("진짜 취업");
         assertThat(post.getContent()).isEqualTo("하고싶다.");
+    }
+
+    @Test
+    @DisplayName("글 내용 수정")
+    public void editContentTest() throws Exception{
+        //given
+        Post post = Post.builder()
+                .title("취업")
+                .content("하고싶다.")
+                .build();
+        postRepository.save(post);
+
+        PostEditRequestDto dto = PostEditRequestDto.builder()
+                .title("취업")
+                .content("너무 하고싶다.")
+                .build();
+        //when
+        postService.edit(post.getId(), dto);
+        //then
+        postRepository.findById(post.getId())
+                .orElseThrow(()-> new RuntimeException("글 조회 실패 : " + post.getId()));
+        assertThat(post.getTitle()).isEqualTo("취업");
+        assertThat(post.getContent()).isEqualTo("너무 하고싶다.");
     }
 }
