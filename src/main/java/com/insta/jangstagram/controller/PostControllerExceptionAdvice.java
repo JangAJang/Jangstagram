@@ -1,5 +1,6 @@
 package com.insta.jangstagram.controller;
 
+import com.insta.jangstagram.exception.PostNotFoundException;
 import com.insta.jangstagram.response.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -26,4 +27,14 @@ public class PostControllerExceptionAdvice {
         }
         return response;
     }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(PostNotFoundException.class)
+    @ResponseBody
+    public ErrorResponse postNotFound(PostNotFoundException e){
+        return ErrorResponse.builder().code("404")
+                .message(e.getMessage())
+                .build();
+    }
+
 }
