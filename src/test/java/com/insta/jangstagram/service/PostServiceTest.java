@@ -196,7 +196,6 @@ class PostServiceTest {
                 .hasMessage("존재하지 않는 글입니다");
     }
 
-
     @Test
     @DisplayName("게시글 삭제")
     public void deleteTest() throws Exception{
@@ -210,5 +209,20 @@ class PostServiceTest {
         postService.delete(post.getId());
         //then
         assertThat(postRepository.count()).isEqualTo(0L);
+    }
+
+    @Test
+    @DisplayName("글 삭제시에 아이디를 조회하지 못할 경우, PostNotFoundException을 던진다.")
+    public void deleteTest_Exception() throws Exception{
+        //given
+        Post post = Post.builder()
+                .title("취업")
+                .content("하고싶다.")
+                .build();
+        postRepository.save(post);
+        //expected
+        assertThatThrownBy(()-> postService.delete(post.getId()+1L))
+                .isInstanceOf(PostNotFoundException.class)
+                .hasMessage("존재하지 않는 글입니다");
     }
 }
