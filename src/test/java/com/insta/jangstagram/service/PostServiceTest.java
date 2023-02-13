@@ -175,4 +175,19 @@ class PostServiceTest {
         assertThat(post.getTitle()).isEqualTo("취업");
         assertThat(post.getContent()).isEqualTo("너무 하고싶다.");
     }
+
+    @Test
+    @DisplayName("게시글 삭제")
+    public void deleteTest() throws Exception{
+        //given
+        Post post = Post.builder()
+                .title("취업")
+                .content("하고싶다.")
+                .build();
+        postRepository.save(post);
+        //when
+        postService.delete(post.getId());
+        //then
+        assertThat(postRepository.count()).isEqualTo(0L);
+    }
 }
