@@ -119,6 +119,20 @@ class PostControllerTest {
     }
 
     @Test
+    @DisplayName("글 한개 조회할 아이디가 없는 값이면 예외처리")
+    public void getOneTest_Exception() throws Exception{
+        //given
+
+        //expected
+        mvc.perform(get("/posts/{postId}", 1L)
+                .contentType(APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.code").value("404"))
+                .andExpect(jsonPath("$.message").value("존재하지 않는 글입니다"))
+                .andDo(print());
+    }
+
+    @Test
     @DisplayName("페이지만 입력되면 10개씩 역순으로 페이지에 출력해준다..")
     public void getPageTest() throws Exception{
         //given
