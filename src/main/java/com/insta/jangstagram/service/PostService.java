@@ -57,7 +57,13 @@ public class PostService {
     public void edit(Long id, PostEditRequestDto postEdit){
         Post post = postRepository.findById(id)
                 .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 글입니다"));
-        post.changeTitle("수정제목");
-        post.changeContent("수정내용");
+        if(postEdit.getTitle() != null &&
+                !postEdit.getTitle().isBlank() &&
+                !postEdit.getTitle().isEmpty())
+            post.changeTitle(postEdit.getTitle());
+        if(postEdit.getContent() != null &&
+                !postEdit.getContent().isBlank() &&
+                !postEdit.getContent().isEmpty())
+            post.changeContent(postEdit.getContent());
     }
 }
