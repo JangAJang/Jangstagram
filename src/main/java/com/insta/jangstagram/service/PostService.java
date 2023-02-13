@@ -5,6 +5,7 @@ import com.insta.jangstagram.domain.PostEditor;
 import com.insta.jangstagram.dto.PostCreateRequestDto;
 import com.insta.jangstagram.dto.PostEditRequestDto;
 import com.insta.jangstagram.dto.PostResponseDto;
+import com.insta.jangstagram.exception.PostNotFoundException;
 import com.insta.jangstagram.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -36,7 +37,7 @@ public class PostService {
     @Transactional(readOnly = true)
     public PostResponseDto getOne(Long id) {
         Post post = postRepository.findById(id)
-                .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 글입니다"));
+                .orElseThrow(PostNotFoundException::new);
         return PostResponseDto.builder()
                 .id(post.getId())
                 .title(post.getTitle())
@@ -58,7 +59,7 @@ public class PostService {
     @Transactional
     public void edit(Long id, PostEditRequestDto postEdit){
         Post post = postRepository.findById(id)
-                .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 글입니다"));
+                .orElseThrow(PostNotFoundException::new);
         PostEditor.PostEditorBuilder postEditorBuilder = post.toEditor();
         editTitle(postEdit, post, postEditorBuilder);
         editContent(postEdit, post, postEditorBuilder);
@@ -69,7 +70,7 @@ public class PostService {
 
     public void delete(Long id){
         Post post = postRepository.findById(id)
-                .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 글입니다"));
+                .orElseThrow(PostNotFoundException::new);
 
         postRepository.delete(post);
     }
