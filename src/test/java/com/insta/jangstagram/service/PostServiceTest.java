@@ -4,6 +4,7 @@ import com.insta.jangstagram.domain.Post;
 import com.insta.jangstagram.dto.PostCreateRequestDto;
 import com.insta.jangstagram.dto.PostEditRequestDto;
 import com.insta.jangstagram.dto.PostResponseDto;
+import com.insta.jangstagram.exception.PostNotFoundException;
 import com.insta.jangstagram.repository.PostRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -175,6 +176,26 @@ class PostServiceTest {
         assertThat(post.getTitle()).isEqualTo("취업");
         assertThat(post.getContent()).isEqualTo("너무 하고싶다.");
     }
+
+    @Test
+    @DisplayName("글 내용 수정시에 아이디를 조회하지 못할 경우, PostNotFoundException을 던진다.")
+    public void editContentTest_Exception() throws Exception{
+        //given
+        Post post = Post.builder()
+                .title("취업")
+                .content("하고싶다.")
+                .build();
+        postRepository.save(post);
+
+        PostEditRequestDto dto = PostEditRequestDto.builder()
+                .content("너무 하고싶다.")
+                .build();
+        //expected
+        assertThatThrownBy(()-> postService.edit(post.getId()+1L, dto))
+                .isInstanceOf(PostNotFoundException.class)
+                .hasMessage("존재하지 않는 글입니다");
+    }
+
 
     @Test
     @DisplayName("게시글 삭제")
