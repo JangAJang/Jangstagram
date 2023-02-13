@@ -1,6 +1,7 @@
 package com.insta.jangstagram.controller;
 
 import com.insta.jangstagram.dto.PostCreateRequestDto;
+import com.insta.jangstagram.dto.PostEditRequestDto;
 import com.insta.jangstagram.dto.PostResponseDto;
 import com.insta.jangstagram.service.PostService;
 import jakarta.validation.Valid;
@@ -35,5 +36,10 @@ public class PostController {
     @GetMapping("/posts")
     public Page<PostResponseDto> getList(@PageableDefault Pageable pageable){
         return postService.getPage(pageable);
+    }
+
+    @PostMapping("/posts/{id}")
+    public void edit(@PathVariable("id") Long id, @RequestBody @Valid PostEditRequestDto postEditRequestDto){
+        postService.edit(id, postEditRequestDto);
     }
 }
