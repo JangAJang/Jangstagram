@@ -1,5 +1,6 @@
 package com.insta.jangstagram.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Getter
 @Builder
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class ErrorResponse {
 
     private final String code;
