@@ -1,6 +1,7 @@
 package com.insta.jangstagram.service;
 
 import com.insta.jangstagram.domain.Post;
+import com.insta.jangstagram.domain.PostEditor;
 import com.insta.jangstagram.dto.PostCreateRequestDto;
 import com.insta.jangstagram.dto.PostEditRequestDto;
 import com.insta.jangstagram.dto.PostResponseDto;
@@ -58,13 +59,9 @@ public class PostService {
     public void edit(Long id, PostEditRequestDto postEdit){
         Post post = postRepository.findById(id)
                 .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 글입니다"));
-        if(postEdit.getTitle() != null &&
-                !postEdit.getTitle().isBlank() &&
-                !postEdit.getTitle().isEmpty())
-            post.changeTitle(postEdit.getTitle());
-        if(postEdit.getContent() != null &&
-                !postEdit.getContent().isBlank() &&
-                !postEdit.getContent().isEmpty())
-            post.changeContent(postEdit.getContent());
+        PostEditor.PostEditorBuilder postEditorBuilder = post.toEditor();
+        PostEditor postEditor = postEditorBuilder.title(postEdit.getTitle())
+                .content(postEdit.getContent()).build();
+        post.edit(postEditor);
     }
 }
