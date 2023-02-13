@@ -38,7 +38,7 @@ public class PostController {
         return postService.getPage(pageable);
     }
 
-    @PostMapping("/posts/{id}")
+    @PatchMapping("/posts/{id}")
     public void edit(@PathVariable("id") Long id, @RequestBody @Valid PostEditRequestDto postEditRequestDto){
         postService.edit(id, postEditRequestDto);
     }

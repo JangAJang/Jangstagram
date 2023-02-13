@@ -3,7 +3,9 @@ package com.insta.jangstagram.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.insta.jangstagram.domain.Post;
+import com.insta.jangstagram.domain.PostEditor;
 import com.insta.jangstagram.dto.PostCreateRequestDto;
+import com.insta.jangstagram.dto.PostEditRequestDto;
 import com.insta.jangstagram.repository.PostRepository;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -141,6 +143,28 @@ class PostControllerTest {
                 .andExpect(jsonPath("$.content.[7].title").value("title23"))
                 .andExpect(jsonPath("$.content.[8].title").value("title22"))
                 .andExpect(jsonPath("$.content.[9].title").value("title21"))
+                .andDo(print());
+    }
+
+    @Test
+    @DisplayName("글 제목 수정")
+    public void editTest() throws Exception{
+        //given
+        Post post = Post.builder()
+                .title("취업하고")
+                .content("싶습니다.")
+                .build();
+        postRepository.save(post);
+
+        PostEditRequestDto postEditRequestDto = PostEditRequestDto.builder()
+                .title("진짜 취업하고")
+                .content("싶습니다.")
+                .build();
+        //expected
+        mvc.perform(patch("/posts/{id}", post.getId())
+                .contentType(APPLICATION_JSON)
+                .content(makeJson(postEditRequestDto)))
+                .andExpect(status().isOk())
                 .andDo(print());
     }
 
