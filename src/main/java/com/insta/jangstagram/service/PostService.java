@@ -56,18 +56,30 @@ public class PostService {
     }
 
     @Transactional
-    public PostResponseDto edit(Long id, PostEditRequestDto postEdit){
+    public void edit(Long id, PostEditRequestDto postEdit){
         Post post = postRepository.findById(id)
                 .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 글입니다"));
         PostEditor.PostEditorBuilder postEditorBuilder = post.toEditor();
+        editTitle(postEdit, post, postEditorBuilder);
+        editContent(postEdit, post, postEditorBuilder);
         PostEditor postEditor = postEditorBuilder
-                .title(postEdit.getTitle())
-                .content(postEdit.getContent())
                 .build();
         post.edit(postEditor);
-        return PostResponseDto.builder()
-                .id(post.getId())
-                .title(post.getTitle())
-                .content(post.getContent()).build();
+    }
+
+    private static void editTitle(PostEditRequestDto postEdit, Post post, PostEditor.PostEditorBuilder postEditorBuilder) {
+        if(postEdit.getTitle() == null) {
+            postEditorBuilder.title(post.getTitle());
+            return;
+        }
+        postEditorBuilder.title(postEdit.getTitle());
+    }
+
+    private static void editContent(PostEditRequestDto postEdit, Post post, PostEditor.PostEditorBuilder postEditorBuilder) {
+        if(postEdit.getContent() == null) {
+            postEditorBuilder.content(post.getContent());
+            return;
+        }
+        postEditorBuilder.content(postEdit.getContent());
     }
 }

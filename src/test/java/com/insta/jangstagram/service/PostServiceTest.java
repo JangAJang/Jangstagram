@@ -144,7 +144,6 @@ class PostServiceTest {
 
         PostEditRequestDto dto = PostEditRequestDto.builder()
                 .title("진짜 취업")
-                .content("하고싶다.")
                 .build();
         //when
         postService.edit(post.getId(), dto);
@@ -166,7 +165,6 @@ class PostServiceTest {
         postRepository.save(post);
 
         PostEditRequestDto dto = PostEditRequestDto.builder()
-                .title("취업")
                 .content("너무 하고싶다.")
                 .build();
         //when
