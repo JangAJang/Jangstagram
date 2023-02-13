@@ -130,5 +130,4 @@ class PostServiceTest {
         assertThat(page1.stream().map(PostResponseDto::getTitle).collect(Collectors.toList()))
                 .containsExactly("title25", "title24", "title23", "title22", "title21");
     }
-
 }

@@ -2,6 +2,7 @@ package com.insta.jangstagram.service;
 
 import com.insta.jangstagram.domain.Post;
 import com.insta.jangstagram.dto.PostCreateRequestDto;
+import com.insta.jangstagram.dto.PostEditRequestDto;
 import com.insta.jangstagram.dto.PostResponseDto;
 import com.insta.jangstagram.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
