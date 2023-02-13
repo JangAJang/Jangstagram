@@ -168,6 +168,22 @@ class PostControllerTest {
                 .andDo(print());
     }
 
+    @Test
+    @DisplayName("게시글 삭제")
+    public void deleteTest() throws Exception{
+        //given
+        Post post = Post.builder()
+                .title("취업")
+                .content("하고싶다.")
+                .build();
+        postRepository.save(post);
+        //expected
+        mvc.perform(delete("/posts/{id}", post.getId())
+                .contentType(APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(print());
+    }
+
     private String makeJson(Object object){
         try {
             return new ObjectMapper().writeValueAsString(object);
