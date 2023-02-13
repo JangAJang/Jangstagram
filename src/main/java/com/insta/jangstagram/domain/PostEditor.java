@@ -1,14 +1,11 @@
 package com.insta.jangstagram.domain;
-
-import com.querydsl.core.annotations.QueryProjection;
-import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 public class PostEditor {
 
-    private String title;
-    private String content;
+    private final String title;
+    private final String content;
 
     public PostEditor(String title, String content) {
         this.title = title;
