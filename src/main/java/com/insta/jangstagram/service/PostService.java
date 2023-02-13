@@ -60,11 +60,9 @@ public class PostService {
     public void edit(Long id, PostEditRequestDto postEdit){
         Post post = postRepository.findById(id)
                 .orElseThrow(PostNotFoundException::new);
-        PostEditor.PostEditorBuilder postEditorBuilder = post.toEditor();
-        editTitle(postEdit, post, postEditorBuilder);
-        editContent(postEdit, post, postEditorBuilder);
-        PostEditor postEditor = postEditorBuilder
-                .build();
+        PostEditor postEditor = post.toEditor()
+                .title(postEdit.getTitle())
+                .content(postEdit.getContent()).build();
         post.edit(postEditor);
     }
 
@@ -73,21 +71,5 @@ public class PostService {
                 .orElseThrow(PostNotFoundException::new);
 
         postRepository.delete(post);
-    }
-
-    private static void editTitle(PostEditRequestDto postEdit, Post post, PostEditor.PostEditorBuilder postEditorBuilder) {
-        if(postEdit.getTitle() == null) {
-            postEditorBuilder.title(post.getTitle());
-            return;
-        }
-        postEditorBuilder.title(postEdit.getTitle());
-    }
-
-    private static void editContent(PostEditRequestDto postEdit, Post post, PostEditor.PostEditorBuilder postEditorBuilder) {
-        if(postEdit.getContent() == null) {
-            postEditorBuilder.content(post.getContent());
-            return;
-        }
-        postEditorBuilder.content(postEdit.getContent());
     }
 }

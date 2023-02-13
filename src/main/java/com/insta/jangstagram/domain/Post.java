@@ -24,9 +24,7 @@ public class Post {
     }
 
     public PostEditor.PostEditorBuilder toEditor(){
-        return PostEditor.builder()
-                .title(title)
-                .content(content);
+        return PostEditor.builder().title(title).content(content);
     }
 
     public void edit(PostEditor postEditor) {
