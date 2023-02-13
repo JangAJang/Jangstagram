@@ -183,6 +183,24 @@ class PostControllerTest {
     }
 
     @Test
+    @DisplayName("글 제목 수정시에 아이디가 없을 때 예외처리")
+    public void editTest_Exception() throws Exception{
+        //given
+        PostEditRequestDto postEditRequestDto = PostEditRequestDto.builder()
+                .title("진짜 취업하고")
+                .content("싶습니다.")
+                .build();
+        //expected
+        mvc.perform(patch("/posts/{id}", 1L)
+                .contentType(APPLICATION_JSON)
+                .content(makeJson(postEditRequestDto)))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.code").value("404"))
+                .andExpect(jsonPath("$.message").value("존재하지 않는 글입니다"))
+                .andDo(print());
+    }
+
+    @Test
     @DisplayName("게시글 삭제")
     public void deleteTest() throws Exception{
         //given
