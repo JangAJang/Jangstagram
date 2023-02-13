@@ -2,6 +2,7 @@ package com.insta.jangstagram.service;
 
 import com.insta.jangstagram.domain.Post;
 import com.insta.jangstagram.dto.PostCreateRequestDto;
+import com.insta.jangstagram.dto.PostEditRequestDto;
 import com.insta.jangstagram.dto.PostResponseDto;
 import com.insta.jangstagram.repository.PostRepository;
 import org.assertj.core.api.Assertions;
@@ -22,6 +23,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@Transactional
 class PostServiceTest {
 
     @Autowired
@@ -129,5 +131,26 @@ class PostServiceTest {
         assertThat(page1.getContent().size()).isEqualTo(5);
         assertThat(page1.stream().map(PostResponseDto::getTitle).collect(Collectors.toList()))
                 .containsExactly("title25", "title24", "title23", "title22", "title21");
+    }
+
+    @Test
+    @DisplayName("글 제목 수정")
+    public void editTitleTest() throws Exception{
+        //given
+        Post post = Post.builder()
+                .title("취업")
+                .content("하고싶다.")
+                .build();
+        postRepository.save(post);
+
+        PostEditRequestDto dto = PostEditRequestDto.builder()
+                .title("진짜 취업")
+                .build();
+        //when
+        postService.edit(post.getId(), dto);
+        //then
+        postRepository.findById(post.getId()).orElseThrow(()-> new RuntimeException("글 조회 실패 : " + post.getId()));
+        assertThat(post.getTitle()).isEqualTo("진짜 취업");
+        assertThat(post.getContent()).isEqualTo("하고싶다.");
     }
 }
